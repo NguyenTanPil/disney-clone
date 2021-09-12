@@ -36,8 +36,7 @@ export const NavMenu = styled.div`
   flex-flow: row nowrap;
   justify-content: flex-end;
   height: 100%;
-  margin: 0;
-  margin-right: auto;
+  margin: 0 auto;
   padding: 0;
   position: relative;
 
@@ -105,4 +104,10 @@ export const Login = styled.a`
     border-color: transparent;
     color: #000;
   }
+`;
+
+export const UserImg = styled.img`
+  border-radius: 50%;
+  height: 100%;
+  padding: 1rem;
 `;
