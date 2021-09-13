@@ -1,34 +1,60 @@
-import { signInWithPopup } from 'firebase/auth';
-import { auth, provider } from '../../firebase-app';
-import homeIcon from '../../images/home-icon.svg';
-import logo from '../../images/logo.svg';
-import movieIcon from '../../images/movie-icon.svg';
-import originalsIcon from '../../images/original-icon.svg';
-import searchIcon from '../../images/search-icon.svg';
-import seriesIcon from '../../images/series-icon.svg';
-import watchListIcon from '../../images/watchlist-icon.svg';
-import { Login, Logo, Nav, NavLink, NavMenu, UserImg } from './HeaderStyles';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { selectUser, setUserLoginDetial } from '../../features/user/userSlice';
+import { signInWithPopup, onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth, provider } from '../../firebase-app';
+
+import homeIcon from '../../assets/images/home-icon.svg';
+import logo from '../../assets/images/logo.svg';
+import movieIcon from '../../assets/images/movie-icon.svg';
+import originalsIcon from '../../assets/images/original-icon.svg';
+import searchIcon from '../../assets/images/search-icon.svg';
+import seriesIcon from '../../assets/images/series-icon.svg';
+import watchListIcon from '../../assets/images/watchlist-icon.svg';
+import {
+  DropDown,
+  Login,
+  Logo,
+  Nav,
+  NavLink,
+  NavMenu,
+  SignOut,
+  UserImg,
+} from './HeaderStyles';
+import {
+  selectUser,
+  setUserLoginDetial,
+  setSignOutState,
+} from '../../features/user/userSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const {
     name: userName,
-    email: userEmail,
+    // email: userEmail,
     photo: userPhoto,
   } = useSelector(selectUser);
 
   const handleAuth = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        setUser(result.user);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    if (!userName) {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          setUser(result.user);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } else {
+      signOut(auth)
+        .then(() => {
+          dispatch(setSignOutState());
+          history.push('/');
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
   };
 
   const setUser = (user) => {
@@ -40,6 +66,16 @@ const Header = () => {
       }),
     );
   };
+
+  useEffect(() => {
+    // If logined => current url is /home and setUser
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUser(user);
+        history.push('/home');
+      }
+    });
+  }, [userName]);
 
   return (
     <Nav>
@@ -78,7 +114,12 @@ const Header = () => {
             </NavLink>
           </NavMenu>
 
-          <UserImg src={userPhoto} alt={userName} />
+          <SignOut>
+            <UserImg src={userPhoto} alt={userName} />
+            <DropDown>
+              <span onClick={handleAuth}>Sign out</span>
+            </DropDown>
+          </SignOut>
         </>
       )}
     </Nav>

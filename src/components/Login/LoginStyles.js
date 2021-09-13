@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import bg from '../../images/login-background.jpg';
+import bg from '../../assets/images/login-background.jpg';
 
 export const Container = styled.section`
   display: flex;
@@ -16,7 +16,7 @@ export const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  margin-bottom: calc(10vw * 62.5 / 100);
+  margin-bottom: calc(10vw / 62.5 * 100);
   min-height: 100vh;
   padding: 8rem 4rem;
   width: 100%;
@@ -40,7 +40,7 @@ export const CTA = styled.div`
   align-items: center;
   justify-content: center;
   flex-flow: column wrap;
-  margin: 0 auto calc(2vw * 62.5 / 100);
+  margin: 0 auto calc(2vw / 62.5 * 100);
   max-width: 65rem;
   text-align: center;
   transition: opacity 0.2s ease-out;

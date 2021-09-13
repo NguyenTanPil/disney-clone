@@ -8,8 +8,8 @@ import {
   Description,
   SignUp,
 } from './LoginStyles';
-import logoOne from '../../images/cta-logo-one.svg';
-import logoTwo from '../../images/cta-logo-two.png';
+import logoOne from '../../assets/images/cta-logo-one.svg';
+import logoTwo from '../../assets/images/cta-logo-two.png';
 
 const Login = () => {
   return (

@@ -107,7 +107,43 @@ export const Login = styled.a`
 `;
 
 export const UserImg = styled.img`
-  border-radius: 50%;
   height: 100%;
+`;
+
+export const DropDown = styled.div`
+  background-color: rgb(19, 19, 10);
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  border-radius: 0.4rem;
+  box-shadow: 0 0 1.8rem 0 rgb(0 0 0 / 50%);
+  font-size: 1.4rem;
+  letter-spacing: 0.3rem;
+  opacity: 0;
   padding: 1rem;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 10rem;
+`;
+
+export const SignOut = styled.div`
+  cursor: pointer;
+  height: 4.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 4.8rem;
+
+  ${UserImg} {
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+  }
+
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      transition-duration: 1s;
+    }
+  }
 `;
