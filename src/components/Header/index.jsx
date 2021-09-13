@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { signInWithPopup, onAuthStateChanged, signOut } from 'firebase/auth';
@@ -57,15 +57,18 @@ const Header = () => {
     }
   };
 
-  const setUser = (user) => {
-    dispatch(
-      setUserLoginDetial({
-        name: user.displayName,
-        email: user.email,
-        photo: user.photoURL,
-      }),
-    );
-  };
+  const setUser = useCallback(
+    (user) => {
+      dispatch(
+        setUserLoginDetial({
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+        }),
+      );
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     // If logined => current url is /home and setUser
@@ -75,7 +78,7 @@ const Header = () => {
         history.push('/home');
       }
     });
-  }, [userName]);
+  }, [userName, history, setUser]);
 
   return (
     <Nav>

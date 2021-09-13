@@ -1,18 +1,16 @@
-import { Container } from './HomeStyles';
+import { collection, getDocs, query } from 'firebase/firestore';
 import { useEffect } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setMovie } from '../../features/movie/movieSlice';
+import { selectUser } from '../../features/user/userSlice';
+import db from '../../firebase-app';
+import { Container } from './HomeStyles';
 import ImgSlider from './ImgSlider';
 import NewDisney from './NewDisney';
 import Originals from './Originals';
 import Recommends from './Recommends';
 import Trending from './Trending';
 import Viewers from './Viewers';
-import db from '../../firebase-app';
-import { setMovie } from '../../features/movie/movieSlice';
-import { selectUser } from '../../features/user/userSlice';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { collection, query, getDocs } from 'firebase/firestore';
 
 const Home = () => {
   const dispatch = useDispatch();
