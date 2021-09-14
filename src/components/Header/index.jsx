@@ -30,11 +30,7 @@ import {
 const Header = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {
-    name: userName,
-    // email: userEmail,
-    photo: userPhoto,
-  } = useSelector(selectUser);
+  const { name: userName, photo: userPhoto } = useSelector(selectUser);
 
   const handleAuth = () => {
     if (!userName) {
