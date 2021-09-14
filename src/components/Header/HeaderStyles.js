@@ -16,7 +16,7 @@ export const Nav = styled.nav`
   z-index: 3;
 `;
 
-export const Logo = styled.a`
+export const Logo = styled(Link)`
   cursor: pointer;
   display: inline-block;
   margin-top: 0.4rem;

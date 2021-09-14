@@ -78,7 +78,7 @@ const Header = () => {
 
   return (
     <Nav>
-      <Logo>
+      <Logo to="/">
         <img src={logo} alt="logo" />
       </Logo>
 

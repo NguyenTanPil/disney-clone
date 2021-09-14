@@ -32,7 +32,7 @@ export const ImgTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: calc(30vw * 100 / 62.5);
+  height: 30vw;
   margin: 0 auto;
   min-height: 17rem;
   padding-bottom: 2.4rem;

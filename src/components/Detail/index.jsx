@@ -18,41 +18,37 @@ import groupIcon from '../../assets/images/group-icon.png';
 
 import { useParams } from 'react-router-dom';
 import db from '../../firebase-app';
-import { collection } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 
 const Detail = () => {
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
+  const { title, backgroundImg, titleImg, subTitle, description } = detailData;
 
   useEffect(() => {
-    db.collection('movies')
-      .doc(id)
-      .get()
-      .then((doc) => {
-        if (doc.exists()) {
-          setDetailData(doc.data());
+    const getDetail = async () => {
+      try {
+        const detail = await getDoc(doc(db, 'movies', id));
+        if (detail) {
+          setDetailData(detail.data());
         } else {
           console.log('No such document in firebase!');
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log('Error gettin document: ', error.message);
-      });
+      }
+    };
+
+    getDetail();
   }, [id]);
 
   return (
     <Container>
       <Background>
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/456A711C19899C881600F6247705E5253EB18C2471D75E5281E1FF6ACB6D2FBA/scale?width=1440&aspectRatio=1.78&format=jpeg"
-          alt="backgound"
-        />
+        <img src={backgroundImg} alt={title} />
       </Background>
       <ImgTitle>
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/4A67A42FB16607DAE7E22266D3F00181965178ED1884047C2D982EE7D89D3554/scale?width=1440&aspectRatio=1.78"
-          alt="image title"
-        />
+        <img src={titleImg} alt={title} />
       </ImgTitle>
       <ContentMeta>
         <Controls>
@@ -74,8 +70,8 @@ const Detail = () => {
             </div>
           </GroupWatch>
         </Controls>
-        <SubTitle>subtitle</SubTitle>
-        <Description>description</Description>
+        <SubTitle>{subTitle}</SubTitle>
+        <Description>{description}</Description>
       </ContentMeta>
     </Container>
   );

@@ -16,7 +16,7 @@ export const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  margin-bottom: calc(10vw / 62.5 * 100);
+  margin-bottom: 10vw;
   min-height: 100vh;
   padding: 8rem 4rem;
   width: 100%;
